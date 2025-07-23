@@ -1,20 +1,7 @@
-word_list = input("Input words: ").split()
+test_results = (45, 67, 82, 90, 55, 74, 100, 61, 43, 37)
 
+filtered_list = [mark for mark in test_results if mark > 50]
 
-words_count = {}
-unique = set()
-
-
-for word in word_list:
-    unique.add(word)
-    if word == "Python":
-        print("Świetnie, znasz Pythona!")
-    if word in words_count:
-        words_count[word] += 1
-    else:
-        words_count[word] = 1
-
-print(words_count)
-print(unique)
-
-
+print(filtered_list)
+print(max(test_results))
+print(min(test_results))

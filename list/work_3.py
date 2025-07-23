@@ -1,10 +1,18 @@
-list = list(map(int, input("Input numbers: ").split()))
+word_list = input("Input words: ").split()
 
-sum = 0
-for i in list:
-    sum += i
 
-if sum / len(list) >= 3:
-    print("Zaliczone")
-else:
-    print("Nie zaliczone")
+words_count = {}
+unique = set()
+
+
+for word in word_list:
+    unique.add(word)
+    if word in words_count:
+        words_count[word] += 1
+    else:
+        words_count[word] = 1
+
+print(words_count)
+print(unique)
+if "Python" in unique:
+    print("Świetnie, znasz Pythona!")
