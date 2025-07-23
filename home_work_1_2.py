@@ -11,32 +11,28 @@ USER_INFO = {
     "isWednesday": week_day == "wednesday",
 }
 
-DISCONT = 5
+DISCOUNT = 5
 
 
-def getDiscount(tickets_prices, discont, isWednesday):
-    prices_copy = tickets_prices.copy()
-    if not isWednesday:
-        return prices_copy
-    for key in prices_copy:
-        if key == "free":
-            continue
-        prices_copy[key] -= discont
-    return prices_copy
-
-
-def calculating_ticket(ticketsPrices, user_info, discont):
-    tickets_prices = getDiscount(ticketsPrices, discont, user_info["isWednesday"])
-    if user_info["age"] < 4:
-        return tickets_prices["free"]
-    if user_info["age"] >= 65:
-        return tickets_prices["senior"]
-    if user_info["isStudent"] and user_info["age"] <= 26:
-        return tickets_prices["student"]
+def getDiscount(discount, isWednesday):
+    if isWednesday:
+        return discount
     else:
-        return tickets_prices["normal"]
+        return 0
 
 
-amount = calculating_ticket(TICKETS_PRICES, USER_INFO, DISCONT)
+
+def calculating_ticket(ticketsPrices, user_info, discount):
+    if user_info["age"] < 4:
+        return ticketsPrices["free"]
+    if user_info["age"] >= 65:
+        return ticketsPrices["senior"] - getDiscount(discount, user_info["isWednesday"])
+    if user_info["isStudent"] and user_info["age"] <= 26:
+        return ticketsPrices["student"] - getDiscount(discount, user_info["isWednesday"])
+    else:
+        return ticketsPrices["normal"] - getDiscount(discount, user_info["isWednesday"])
+
+
+amount = calculating_ticket(TICKETS_PRICES, USER_INFO, DISCOUNT)
 
 print(f"Total to pay: { amount }zł")
