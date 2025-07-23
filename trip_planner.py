@@ -1,5 +1,5 @@
-DISTANCE = int(input("How many kilometers need drive: "))
-FUEL_CONSUMPTION = int(input("Fuel consumption per 100 kilometers: "))
+DISTANCE = float(input("How many kilometers need drive: "))
+FUEL_CONSUMPTION = float(input("Fuel consumption per 100 kilometers: "))
 PETROL_PRICE = float(input("Petrol cost: "))
 PASSENGER_COUNT = int(input("Passenger count: "))
 
