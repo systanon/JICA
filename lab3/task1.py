@@ -1,9 +1,11 @@
+from utils.utils import prettifyDict
+
+
 def lettersCount(tekst):
     list = tekst.split()
     letters = {}
     for word in list:
         for letter in word:
-            print(letter)
             if letter in letters:
                 letters[letter] += 1
             else:
@@ -11,6 +13,4 @@ def lettersCount(tekst):
     return letters
 
 
-res = lettersCount(input("Input some text: "))
-
-print(res)
+prettifyDict(lettersCount(input("Input some text: ")))
