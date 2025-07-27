@@ -5,10 +5,13 @@ def student_diary(text, listKeys={"grades"}):
     i = 0
 
     while i < len(parts):
+        if i >= len(parts):
+            break
+
         key = parts[i]
-        i += 1
 
         if key in listKeys:
+            i += 1
             values = []
             while i < len(parts):
                 try:
@@ -19,11 +22,13 @@ def student_diary(text, listKeys={"grades"}):
             result[key] = values
             result["average"] = sum(values) / len(values)
         else:
-            if i < len(parts):
-                result[key] = parts[i]
-                i += 1
+            if i + 1 < len(parts):
+                result[key] = parts[i + 1]
+                i += 2
             else:
                 result[key] = None
+                i += 1
+    return result
 
 
 print(student_diary(input("Enter key-value: ")))
