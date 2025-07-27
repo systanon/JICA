@@ -2,9 +2,7 @@ import re
 
 
 def formatter(text):
-    formatted_text = re.sub(
-        r"python", "PYTHON", text.strip().lower(), flags=re.IGNORECASE
-    )
+    formatted_text = re.sub(r"python", "PYTHON", text.strip().lower())
     return formatted_text
 
 
