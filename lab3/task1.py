@@ -2,10 +2,9 @@ from utils.utils import prettifyDict
 
 
 def lettersCount(tekst):
-    list = tekst.split()
     letters = {}
-    for word in list:
-        for letter in word:
+    for letter in tekst:
+        if letter and letter.isalpha():
             if letter in letters:
                 letters[letter] += 1
             else:
