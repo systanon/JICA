@@ -54,7 +54,11 @@ while True:
         break
     
     elif isShowHistory(user_input):
-         print(readHistory()[user_name]) 
+        his = readHistory()
+        if user_name in his:
+            print(his[user_name])
+        else:
+            print("Empty history!!!")    
 
     elif isShowUserName(user_input):
          print(user_name)
