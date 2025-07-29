@@ -2,8 +2,15 @@ import json
 from datetime import datetime
 import os
 
+filename = "history.json"
+
 current_dir = os.path.dirname(__file__)
-file_path = os.path.join(current_dir, "history.json")
+file_path = os.path.join(current_dir, filename)
+
+
+if not os.path.exists(file_path):
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump({}, f, ensure_ascii=False, indent=4)
 
 
 def isCloseCalculator(str):
