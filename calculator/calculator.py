@@ -13,76 +13,68 @@ if not os.path.exists(file_path):
         json.dump({}, f, ensure_ascii=False, indent=4)
 
 
-def isCloseCalculator(str):
-    str = str.lower()
-    return str == "exit" or str == "quit" or str == "q"
-
-
-def isShowHistory(str):
-    str = str.lower()
-    return str == "history" or str == "h"
-
-
-def calculateFun(str):
-    return eval(str)
-
-
-def isShowUserName(str):
-    return str == "username"
-
 
 def getDate():
     now = datetime.now()
     return now.strftime("%Y-%m-%d %H:%M:%S")
 
 
-def saveHistory(history, user_name):
-    _history = readHistory()
-    if len(history) == 0:
-        return
-    if user_name in _history:
-        _history[user_name][getDate()] = history
+def saveHistory(history, user_name, user_input):
+    if user_name in history:
+        history[user_name][getDate()] = user_input
     else:
-        _history[user_name] = {getDate(): history}
+        history[user_name] = {getDate(): user_input}
 
     with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(_history, f, ensure_ascii=False, indent=2)
+        json.dump(history, f, ensure_ascii=False, indent=2)
 
 
 def readHistory():
     with open(file_path, "r", encoding="utf-8") as f:
         return json.load(f)
+    
+def showHistory(history, userName):
+    if userName in history:
+            print(history[userName])
+    else:
+            print("Empty history!!!")
 
+def calculate(history, user_name):
+    inputCalculate = input("Input calculate: ")
+    try:
+        res = eval(inputCalculate)
+        saveHistory(history, user_name, inputCalculate)
+        print(res)
+    except:
+        print("Error calculate !!!")
+    
 
 def main():
     user_name = input("Enter user name: ")
-    user_history_list = []
+    print("Options: ")
+    print("1 - show history: ")
+    print("2 - show active user: ")
+    print("3 - calculate: ")
+    print("4 - show all history: ")
+    print("0 - exit: ")
 
     while True:
-        user_input = input("Input values: ")
-
-        if isCloseCalculator(user_input):
-            print("Exit")
-            saveHistory(user_history_list, user_name)
-            break
-
-        elif isShowHistory(user_input):
-            his = readHistory()
-            if user_name in his:
-                print(his[user_name])
-            else:
-                print("Empty history!!!")
-
-        elif isShowUserName(user_input):
-            print(user_name)
-        else:
-            try:
-                res = calculateFun(user_input)
-                user_history_list.append(user_input)
-                print(res)
-            except:
-                print("Error calculate !!!")
-                continue
+        history = readHistory()
+        option = input("Choose option: ")
+        match option:
+            case "1":
+                showHistory(history, user_name)
+            case "2":
+                print(user_name)
+            case "3":
+                calculate(history,user_name)
+            case "4":
+                print(history)
+            case "0":
+                print("Program is closed bye bye")
+                break
+            case _:
+                print("Option not in list")
 
 
 if __name__ == "__main__":
